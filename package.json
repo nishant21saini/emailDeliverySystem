@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A robust Node.js-based email service designed with  patterns including retry logic, circuit breakers, rate limiting, idempotency, and provider fallback mechanisms.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
