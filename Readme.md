@@ -115,14 +115,14 @@ Main service  with the following key methods:
 
 #### RateLimiter.js
 Controls request rate to prevent overwhelming email providers:
-- `maxRequests`: Maximum emails allowed in the time window (default: 10)
+- `maxRequests`: Maximum emails allowed in the time window (default: 100)
 - `timeWindow`: Time period in milliseconds (default: 60000ms)
 - `canMakeRequest()`: Checks if request is within rate limits
 - `recordRequest()`: Logs timestamp for rate limit tracking
 
 #### CircuitBreaker.js
 Implements circuit breaker pattern for fault tolerance:
-- `threshold`: Number of failures before opening circuit (default: 3)
+- `threshold`: Number of failures before opening circuit (default: 5)
 - `timeout`: Cooldown period before retrying (default: 30000ms)
 - **States**: CLOSED (normal), OPEN (failing fast), HALF_OPEN (testing)
 - `execute(fn)`: Wraps function calls with failure protection
@@ -139,10 +139,10 @@ Simulates email service providers:
 
 ### Default Settings
 - **Queue Processing**: Every 10 seconds
-- **Rate Limit**: 10 emails per minute
+
 - **Circuit Breaker**: 3 failures trigger, 30-second timeout
 - **Max Retries**: 3 attempts per email
-- **Providers**: 3 simulated providers with different characteristics
+- **Providers**: 2 simulated providers with different characteristics
 
 ### Customization
 Modify configuration in the EmailService constructor:
@@ -154,6 +154,22 @@ this.rateLimiter = new RateLimiter(20, 120000);
 // Custom circuit breaker: 5 failures, 60-second timeout
 this.circuitBreakers.set(provider.name, new CircuitBreaker(5, 60000));
 ```
+
+## Live API
+
+- **Send Email** → `POST`  
+  https://emaildeliverysystem-2.onrender.com/send-email
+  **Request Body**
+  JSON format
+  {
+  "to": "recipient@example.com",
+  "subject": "Test Email",
+  "body": "This is a test email from my system"
+}
+
+
+- **Check Email Status** → `GET`  
+  https://emaildeliverysystem-2.onrender.com/results
 
 ##  Resilience Patterns
 
