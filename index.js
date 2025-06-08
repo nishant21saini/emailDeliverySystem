@@ -6,7 +6,7 @@ const app = express();
 app.use(express.json());
 
 
-//hit api 3 times in span of 1 sec
+
 const sendEmailLimiter = rateLimit({
 	windowMs: 60 * 1000, // 1 minute
 	limit: 5,
@@ -14,15 +14,15 @@ const sendEmailLimiter = rateLimit({
 	legacyHeaders: false,
 });
 
-// For /results route
+
 const resultsLimiter = rateLimit({
-	windowMs: 60 * 1000, // 1 minute
+	windowMs: 60 * 1000, 
 	limit: 5,
 	standardHeaders: 'draft-8',
 	legacyHeaders: false,
 });
 
-// Apply the rate limiting middleware to all requests.
+
 const emailService = new EmailService({});
 
 
